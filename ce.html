@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMMS System Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+•⁠  ⁠{
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f7f7f7; /* Light background for contrast */
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 0;
+  place-items: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.slide-container {
+  align-items: center;
+  background: linear-gradient(145deg, #ffffff 0%, #eef0f3 100%);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1280px;
+  transition: all 0.5s ease;
+}
+
+/* Background Decoration (Hacky-thon Vibe) */
+.slide-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at center, rgba(16, 185, 129, 0.05) 0%, transparent 40%); /* Teal glow */
+    z-index: 0;
+    pointer-events: none;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. TYPOGRAPHY */
+h1, h2, h3, .slide-title {
+  font-family: 'Montserrat', sans-serif;
+  color: #1e293b;
+  margin: 0;
+}
+
+h1 {
+  font-size: 80px;
+  font-weight: 800;
+  color: #064e3b; /* Deep Teal/Dark Green */
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.slide-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #16a34a; /* Medium Green */
+  margin-bottom: 40px;
+  text-align: left;
+  width: 100%;
+  border-bottom: 4px solid #99f6e4; /* Accent Line - Light Teal */
+  padding-bottom: 15px;
+}
+
+p, li, td, th {
+  font-size: 20px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.subtitle {
+  font-size: 28px;
+  color: #64748b;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+/* 3. LAYOUTS */
+
+/* Title Slide */
+.title-layout {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title-layout h1 span {
+    color: #0f766e; /* Highlight Teal */
+    font-size: 0.8em;
+}
+
+.tagline {
+    font-size: 32px;
+    font-weight: 600;
+    color: #475569;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #ecfdf5;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Content Area */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Two Column */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* Feature Cards */
+.feature-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    border-left: 6px solid #10b981;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    color: #047857;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.feature-card h3 i {
+    margin-right: 15px;
+    color: #059669;
+}
+
+/* Highlighted Takeaway */
+.takeaway-box {
+    background: linear-gradient(90deg, #ecfdf5, #f0fdf4);
+    border: 2px solid #34d399;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.takeaway-box p {
+    font-size: 26px;
+    font-weight: 700;
+    color: #047857;
+    margin: 0;
+}
+
+/* List Styling */
+ul.stylish-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.stylish-list li {
+    margin-bottom: 20px;
+    padding-left: 40px;
+    position: relative;
+    font-size: 22px;
+    color: #334155;
+    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 10px;
+}
+
+ul.stylish-list li:last-child {
+    border-bottom: none;
+}
+
+ul.stylish-list li::before {
+    content: '\f101'; /* FontAwesome Angle Double Right */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: #059669; /* Medium Teal */
+    font-size: 24px;
+    top: 2px;
+}
+
+/* Impact Metrics */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.metric-item {
+    text-align: center;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #d1fae5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.metric-number {
+    font-size: 60px;
+    font-weight: 800;
+    color: #ef4444; /* Red for high impact numbers */
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.metric-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* Developer Info */
+.developer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    background: #f0fdf4;
+    border-radius: 15px;
+    border: 1px solid #a7f3d0;
+}
+
+.developer-card i {
+    font-size: 70px;
+    color: #059669;
+    margin-bottom: 20px;
+}
+
+.developer-card h3 {
+    font-size: 32px;
+    color: #064e3b;
+}
+
+.developer-card p {
+    font-size: 20px;
+    color: #475569;
+}
+
+.footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, #10b981, #064e3b);
+}
+
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title Slide - The Project -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <p class="tagline">HACKATHON ENTRY: AUTOMATED MONITORING</p>
+        <h1>AMMS <br><span>SYSTEM</span></h1>
+        <p class="subtitle">Asset Management & Monitoring System</p>
+        <p style="font-size: 24px; margin-top: 30px; color: #064e3b;"><strong>Developed by:</strong> Himanshu Patil & Pranay Panore</p>
+        <div class="takeaway-box" style="margin-top: 50px;">
+            <p>"FROM CONCEPT TO CODE IN 48 HOURS."</p>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 2: The Problem -->
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">The Challenge: Why AMMS?</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>1. Inefficient Asset Tracking</h3>
+                <p>Manual methods (spreadsheets, logs) lead to frequent errors, lost equipment, and time-consuming audits, especially in large industrial or campus environments.</p>
+                <br>
+                <h3>2. Reactive Maintenance</h3>
+                <p>Maintenance is typically performed only after a failure occurs, resulting in costly downtime, premature asset replacement, and wasted resources.</p>
+                <br>
+                <h3>3. Security & Compliance Gaps</h3>
+                <p>Difficulty in maintaining real-time location and status updates, posing risks for high-value or regulated equipment.</p>
+            </div>
+            <div>
+                <img src="https://placehold.co/400x350/f0fdfa/064e3b?text=Problem+Diagram" alt="Diagram showing broken equipment" style="width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                <div class="takeaway-box" style="margin-top: 30px;">
+                    <p>MANUAL TRACKING = HIDDEN COSTS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 3: The Solution - AMMS Core Features -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">AMMS System: The Solution</h2>
+    <div class="content-area">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+            <div class="feature-card">
+                <h3><i class="fa-solid fa-map-pin"></i> Real-Time Location</h3>
+                <p>Utilizes BLE/QR codes for instant asset check-in/out and precise location mapping within defined zones.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i class="fa-solid fa-gauge-high"></i> Predictive Analytics</h3>
+                <p>Monitors critical equipment parameters (temp, vibration) to forecast failures and schedule maintenance preemptively.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i class="fa-solid fa-mobile-screen-button"></i> Mobile Interface</h3>
+                <p>A user-friendly mobile app for staff to log issues, view asset history, and perform guided inspections on the go.</p>
+            </div>
+             <div class="feature-card" style="grid-column: span 3; text-align: center;">
+                <p style="font-size: 26px; font-weight: 700; color: #10b981; margin: 0;"><i class="fa-solid fa-circle-check"></i> KEY TAKEAWAY: 100% REAL-TIME ASSET VISIBILITY</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 4: Architecture and Tech Stack -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Technical Architecture & Stack</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Scalable IoT Infrastructure</h3>
+                <ul class="stylish-list">
+                    <li><strong>Frontend:</strong> React Native (Cross-platform mobile access)</li>
+                    <li><strong>Backend:</strong> Node.js & Express (High-performance API handling)</li>
+                    <li><strong>Database:</strong> MongoDB (Flexible schema for asset metadata)</li>
+                    <li><strong>IoT/Monitoring:</strong> Microcontrollers (ESP32) for sensor data collection</li>
+                </ul>
+            </div>
+            <div style="padding: 20px; background: #ecfdf5; border-radius: 15px;">
+                <h3 style="color: #047857; margin-bottom: 20px;"><i class="fa-solid fa-server"></i> Architectural Flow</h3>
+                <p><strong>Sensors/Tags</strong> &rarr; ESP32 Gateway &rarr; <strong>REST API (Node.js)</strong> &rarr; MongoDB &rarr; <strong>Mobile App (React Native)</strong></p>
+                <hr style="margin: 20px 0; border-color: #a7f3d0;">
+                <div class="takeaway-box" style="margin-top: 0; background: #fff; border-color: #10b981;">
+                    <p style="font-size: 22px;">"DESIGNED FOR HIGH AVAILABILITY AND LOW LATENCY"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 5: Impact and Results -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Impact & Future Scope</h2>
+    <div class="content-area">
+        <div class="metric-grid">
+            <div class="metric-item">
+                <span class="metric-number">30%</span>
+                <span class="metric-label">Reduction in Downtime</span>
+                <p style="font-size: 16px; margin-top: 10px;">(Through predictive maintenance alerts)</p>
+            </div>
+            <div class="metric-item">
+                <span class="metric-number">95%</span>
+                <span class="metric-label">Asset Audit Accuracy</span>
+                <p style="font-size: 16px; margin-top: 10px;">(Eliminating manual inventory errors)</p>
+            </div>
+            <div class="metric-item">
+                <span class="metric-number">5x</span>
+                <span class="metric-label">Faster Response Time</span>
+                <p style="font-size: 16px; margin-top: 10px;">(For reporting and resolving asset issues)</p>
+            </div>
+        </div>
+        <h3 style="margin-top: 50px; color: #047857;">Next Steps (Future Scope)</h3>
+        <ul class="stylish-list" style="margin-top: 20px;">
+            <li style="font-size: 20px;">Integration with ERP systems (SAP/Oracle).</li>
+            <li style="font-size: 20px;">Implementing Machine Learning for deeper failure pattern analysis.</li>
+        </ul>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 6: Team -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">The Developers: Himanshu & Pranay</h2>
+    <div class="content-area" style="display: flex; justify-content: center; gap: 80px; align-items: center;">
+        <div class="developer-card" style="width: 40%;">
+            <i class="fa-solid fa-user-gear"></i>
+            <h3>Himanshu Patil</h3>
+            <p><strong>Role:</strong> Backend & IoT Integration Lead</p>
+            <p style="font-style: italic; font-size: 16px; margin-top: 10px;">"Focused on scalable data handling and real-time monitoring streams."</p>
+        </div>
+        <div class="developer-card" style="width: 40%;">
+            <i class="fa-solid fa-user-tie"></i>
+            <h3>Pranay Panore</h3>
+            <p><strong>Role:</strong> Frontend & User Experience Architect</p>
+            <p style="font-style: italic; font-size: 16px; margin-top: 10px;">"Ensured a robust, intuitive mobile interface for field personnel."</p>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+<!-- Slide 7: Conclusion/Q&A -->
+<div class="slide-container" id="slide7">
+    <div class="title-layout">
+        <h1 style="font-size: 100px; color: #064e3b;">THANK YOU.</h1>
+        <p class="subtitle" style="color: #16a34a;">We are ready to demonstrate the AMMS system live.</p>
+        <h2 style="margin-top: 50px; font-size: 60px; color: #ef4444;">Q & A</h2>
+        <div style="margin-top: 50px;">
+            <p style="font-weight: 600;">Himanshu Patil & Pranay Panore</p>
+            <p style="font-size: 18px; margin-top: 5px;"><i class="fa-solid fa-envelope"></i> Contact: [Your Email] | <i class="fa-solid fa-location-dot"></i> [Your College/Department]</p>
+        </div>
+        
+        <!-- Added Context -->
+        <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 15px;">
+             <p style="font-size: 16px; color: #64748b; font-style: italic;">
+                Presentation Context: Friday, November 28, 2025 at 10:34 PM IST (India)
+            </p>
+        </div>
+    </div>
+    <div class="footer-bar"></div>
+</div>
+
+</body>
+</html>
